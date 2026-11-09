@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 extension UIImage {
-    
     /// Workaround: Apply two ML filters sequently will break the image
     ///
     /// - Returns: the reloaded image
@@ -26,12 +25,11 @@ extension UIImage {
             try? fm.removeItem(at: tmpfile)
         }
         if jpg {
-            try! UIImageJPEGRepresentation(self, quality)?.write(to: tmpfile)
+            try! self.jpegData(compressionQuality: quality)?.write(to: tmpfile)
         } else {
-            try! UIImagePNGRepresentation(self)?.write(to: tmpfile)
+            try! self.pngData()?.write(to: tmpfile)
         }
         let img = UIImage(contentsOfFile: tmpfile.path)
         return img
     }
-    
 }
